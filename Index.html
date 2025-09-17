@@ -1,10 +1,107 @@
-{
-  "keys": [
-    {
-      "kty": "RSA",
-      "e": "AQAB",
-      "kid": "1c67e482-c452-4bb2-b979-0e60a6174fc3",
-      "n": "1B_RkuQqA5oOyG7yJzWXj1l3IGIrt4WyHlz_sxSceSEu3V1HoztBPiWq4vJHOmSgZQBmB1AlXzL8-CZB9KhIPWO2YarzLT4BVCv_G7F-ZdkaPotnA53NpLdmrcLbpFetpl5KFAOmLHhINjOWTNZ3o_jg8DTogNYjR2TFcCkBqJnL1hOz6nHeax4sG2J3Xtoh7C-XZx6E6oRODhzT2feUfOM6gUm_5XWMO2lX9mhEZyKaUv4QjS5YjwUWiu19I6ESieY8-TV9LiCgniXe_US_mWh4tQZg_4y1pF73NNC6XAF0VOcBBuq0B9JHBg5QZnkFquE1ae63FSddAJrMWGiZ-Q"
-    }
-  ]
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPIC-DHP Public/Private Keys</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .json-display {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        .loading {
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            color: #dc3545;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EPIC-DHP Public/Private Keys</h1>
+        <div id="content">
+            <div class="loading">Loading keys...</div>
+        </div>
+    </div>
+
+    <script>
+        // JSON data embedded in the page
+        const keysData = {
+            "keys": [
+                {
+                    "kty": "RSA",
+                    "e": "AQAB",
+                    "kid": "1c67e482-c452-4bb2-b979-0e60a6174fc3",
+                    "n": "1B_RkuQqA5oOyG7yJzWXj1l3IGIrt4WyHlz_sxSceSEu3V1HoztBPiWq4vJHOmSgZQBmB1AlXzL8-CZB9KhIPWO2YarzLT4BVCv_G7F-ZdkaPotnA53NpLdmrcLbpFetpl5KFAOmLHhINjOWTNZ3o_jg8DTogNYjR2TFcCkBqJnL1hOz6nHeax4sG2J3Xtoh7C-XZx6E6oRODhzT2feUfOM6gUm_5XWMO2lX9mhEZyKaUv4QjS5YjwUWiu19I6ESieY8-TV9LiCgniXe_US_mWh4tQZg_4y1pF73NNC6XAF0VOcBBuq0B9JHBg5QZnkFquE1ae63FSddAJrMWGiZ-Q"
+                }
+            ]
+        };
+
+        // Function to display the JSON data
+        function displayKeys() {
+            const contentDiv = document.getElementById('content');
+            
+            try {
+                // Format the JSON with proper indentation
+                const formattedJson = JSON.stringify(keysData, null, 2);
+                
+                // Display the formatted JSON
+                contentDiv.innerHTML = `
+                    <div class="json-display">${formattedJson}</div>
+                `;
+            } catch (error) {
+                contentDiv.innerHTML = `
+                    <div class="error">
+                        Error displaying keys: ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Display the keys when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            displayKeys();
+        });
+
+        // Also display immediately in case DOMContentLoaded already fired
+        if (document.readyState === 'loading') {
+            // Document is still loading, wait for DOMContentLoaded
+        } else {
+            // Document has already loaded
+            displayKeys();
+        }
+    </script>
+</body>
+</html>
